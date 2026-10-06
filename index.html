@@ -449,12 +449,24 @@ body::-webkit-scrollbar-thumb:hover { background: var(--sky-700); }
   50% { transform: translateY(-7px) rotate(10deg); opacity: 0.85; }
 }
 
+.photo-duo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 0 auto 30px;
+  flex-wrap: wrap;
+}
+
 .photo-wrap {
   position: relative;
-  width: 210px;
-  height: 210px;
-  margin: 0 auto 30px;
+  width: 150px;
+  height: 150px;
   animation: photoFloat 5s ease-in-out infinite;
+}
+
+.photo-wrap:nth-child(2) {
+  animation-delay: 1.2s;
 }
 
 @keyframes photoFloat {
@@ -464,11 +476,15 @@ body::-webkit-scrollbar-thumb:hover { background: var(--sky-700); }
 
 .photo-ring {
   position: absolute;
-  inset: -14px;
+  inset: -12px;
   border-radius: 50%;
   background: conic-gradient(from 0deg, #38bdf8, #7dd3fc, #ffffff, #bae6fd, #0ea5e9, #38bdf8);
   animation: spinRing 9s linear infinite;
   filter: blur(0.5px);
+}
+
+.photo-wrap:nth-child(2) .photo-ring {
+  animation-direction: reverse;
 }
 
 @keyframes spinRing {
@@ -477,7 +493,7 @@ body::-webkit-scrollbar-thumb:hover { background: var(--sky-700); }
 
 .photo-ring-inner {
   position: absolute;
-  inset: -8px;
+  inset: -7px;
   border-radius: 50%;
   background: #ffffff;
 }
@@ -513,20 +529,20 @@ body::-webkit-scrollbar-thumb:hover { background: var(--sky-700); }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 4px;
   color: var(--sky-600);
   background: linear-gradient(160deg, #e0f2fe, #bae6fd);
   z-index: 1;
 }
 
 .photo-placeholder svg {
-  width: 64px;
-  height: 64px;
+  width: 46px;
+  height: 46px;
   opacity: 0.6;
 }
 
 .photo-placeholder span {
-  font-size: 0.72rem;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   opacity: 0.75;
@@ -534,20 +550,24 @@ body::-webkit-scrollbar-thumb:hover { background: var(--sky-700); }
 
 .photo-badge {
   position: absolute;
-  bottom: 4px;
-  right: 4px;
-  width: 52px;
-  height: 52px;
+  bottom: 0;
+  right: 0;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: linear-gradient(145deg, #38bdf8, #0284c7);
   border: 4px solid #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 18px;
   z-index: 5;
   box-shadow: 0 8px 22px rgba(2, 132, 199, 0.35);
   animation: badgePop 2.6s ease-in-out infinite;
+}
+
+.photo-wrap:nth-child(2) .photo-badge {
+  animation-delay: 1.3s;
 }
 
 @keyframes badgePop {
@@ -1009,8 +1029,10 @@ body::-webkit-scrollbar-thumb:hover { background: var(--sky-700); }
 @media (max-width: 640px) {
   .page { padding: 44px 14px 56px; gap: 26px; }
   .card { padding: 34px 20px 30px; border-radius: 34px; }
-  .photo-wrap { width: 174px; height: 174px; }
-  .photo-badge { width: 46px; height: 46px; font-size: 19px; }
+  .photo-wrap { width: 126px; height: 126px; }
+  .photo-duo { gap: 14px; margin-bottom: 24px; }
+  .photo-badge { width: 36px; height: 36px; font-size: 15px; border-width: 3px; }
+  .photo-placeholder svg { width: 38px; height: 38px; }
   .cake-scene { width: 168px; height: 134px; transform: scale(0.92); }
   .btn { padding: 13px 24px; font-size: 0.88rem; }
   .btn-row { flex-direction: column; width: 100%; }
@@ -1023,7 +1045,8 @@ body::-webkit-scrollbar-thumb:hover { background: var(--sky-700); }
 }
 
 @media (max-width: 380px) {
-  .photo-wrap { width: 150px; height: 150px; }
+  .photo-wrap { width: 108px; height: 108px; }
+  .photo-duo { gap: 10px; }
   .title-hb { font-size: 1.85rem; }
   .cake-scene { transform: scale(0.82); height: 120px; }
 }
@@ -1086,28 +1109,56 @@ body::-webkit-scrollbar-thumb:hover { background: var(--sky-700); }
     <span class="card-corner corner-bl">🎈</span>
     <span class="card-corner corner-br">🎂</span>
 
-    <div class="photo-wrap">
-      <div class="photo-ring"></div>
-      <div class="photo-ring-inner"></div>
+    <div class="photo-duo">
 
-      <div class="photo-frame">
-        <img
-          id="mainPhoto"
-          src="majebelle.jpg"
-          alt="A special photo"
-          onerror="this.style.display='none'; document.getElementById('photoPlaceholder').style.display='flex';">
+      <div class="photo-wrap">
+        <div class="photo-ring"></div>
+        <div class="photo-ring-inner"></div>
 
-        <div class="photo-placeholder" id="photoPlaceholder" style="display:none;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          <span>Add your photo here</span>
+        <div class="photo-frame">
+          <img
+            id="photo1"
+            src="1.jpg"
+            alt="A special photo"
+            onerror="this.style.display='none'; document.getElementById('placeholder1').style.display='flex';">
+
+          <div class="photo-placeholder" id="placeholder1" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>1.jpg</span>
+          </div>
         </div>
+
+        <div class="photo-badge">🎉</div>
       </div>
 
-      <div class="photo-badge">🎉</div>
+      <div class="photo-wrap">
+        <div class="photo-ring"></div>
+        <div class="photo-ring-inner"></div>
+
+        <div class="photo-frame">
+          <img
+            id="photo2"
+            src="2.jpg"
+            alt="Another special photo"
+            onerror="this.style.display='none'; document.getElementById('placeholder2').style.display='flex';">
+
+          <div class="photo-placeholder" id="placeholder2" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>2.jpg</span>
+          </div>
+        </div>
+
+        <div class="photo-badge">💙</div>
+      </div>
+
     </div>
 
     <p class="eyebrow">Special Day</p>
